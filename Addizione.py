@@ -1,5 +1,5 @@
-class Somma():
-    def __init__(self, lista_addendi):
+class Addizione():
+    def __init__(self, lista_addendi = [0]):
         self.__lista_addendi = None
 
         self.set_lista_addendi(lista_addendi)
@@ -22,7 +22,7 @@ class Somma():
                 lista_addendi_temp.append(valore)
                 index += 1
             else: 
-                raise TypeError(f'Inserisci un valore numerico, hai inserito {type(secondo_addendo)} in posizione {index}')
+                raise TypeError(f'Inserisci un valore numerico, hai inserito {type(valore)} in posizione {index}')
         self.__lista_addendi = lista_addendi_temp
 
     def get_lista_addendi(self):
