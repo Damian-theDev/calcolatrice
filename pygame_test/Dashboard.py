@@ -1,12 +1,10 @@
 class Dashboard():
     def __init__(self):
         """
-        Inizializza la Dashboard e gli attributi della classe, richiama la funzione reset per reimpostare questi ultimi.
+        Inizializza l'oggetto e, con esso, i suoi attributi.
         """
-        self.__stringa_corrente = None
-        self.__init_zero = None
-
-        self.reset()
+        self.__stringa_corrente = '0'
+        self.__init_zero = True
 
     def reset(self):
         """
@@ -27,12 +25,15 @@ class Dashboard():
         Gestisce le eccezioni per garantire che il programma non fallisca in modo imprevisto.
         """
         try:
-            if isinstance(valore, int) or valore in ('(', ')') or (valore == ',' and self.__stringa_corrente[-1] not in (',', '(', ')')):
-                if self.__init_zero:
-                    self.__init_zero = False
-                    self.__stringa_corrente = ''
-                self.__stringa_corrente += str(valore)
-            
+            if isinstance(valore, int) or valore in ('(', ')', ','):
+                if (valore == ',' and self.__stringa_corrente[-1] in (',', '(', ')')) == False and \
+                    (valore in ('(', ')') and self.__stringa_corrente[-1] == ',') == False:        
+                    if self.__init_zero:
+                        self.__init_zero = False
+                        if valore != ',':
+                            self.__stringa_corrente = ''
+                    self.__stringa_corrente += str(valore)
+                
             elif valore in ('+', '-', '*', '/'):
                 self.__stringa_corrente += str(valore)
                 self.__init_zero = False
@@ -59,15 +60,18 @@ class Dashboard():
             print(f'Errore generico: {e}')
             # Gestione generica per altre eccezioni non previste
 
-    def cancella_posizione(self, pos=-1):
+    def cancella_posizione(self, pos = -1):
         """
         Cancella il carattere alla posizione specificata nella stringa corrente.
         Se la stringa diventa vuota, la resetta.
         """
         try:
-            if self.__stringa_corrente:
-                self.__stringa_corrente = self.__stringa_corrente[:pos] + self.__stringa_corrente[pos+1:]
-                if not self.__stringa_corrente:
+            if self.__stringa_corrente[pos]:
+                if pos == -1:
+                    self.__stringa_corrente = self.__stringa_corrente[:-1]
+                else:
+                    self.__stringa_corrente = self.__stringa_corrente[:pos] + self.__stringa_corrente[pos+1:]
+                if self.__stringa_corrente == '':
                     self.reset()
             else:
                 raise IndexError(f'Indice non valido (valore inserito: {pos})')
@@ -82,3 +86,4 @@ class Dashboard():
     def calcola(self):
         print("da implementare")
         # TODO: implementa >:(
+        self.reset()

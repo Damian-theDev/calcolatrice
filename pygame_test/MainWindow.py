@@ -43,27 +43,38 @@ init_button_y = init_altezza * 0.23
 button_y_inc = (init_altezza - init_button_y) // 5 
 button_x_inc = init_larghezza // 4
 
-# bottoni effettivi
+# bottoni effettivi                                     --- x inizio      --- y inizio                      --- x fine        --- y fine
 # prima riga
-bottone_parentesi_aperta = setup_bottone(font, "(", 0, init_button_y, button_x_inc, init_button_y + button_y_inc)
-bottone_parentesi_chiusa = setup_bottone(font, ")", button_x_inc, init_button_y, button_x_inc * 2, init_button_y + button_y_inc)
-bottone_canc = setup_bottone(font, "canc", button_x_inc * 2, init_button_y, button_x_inc * 3, init_button_y + button_y_inc)
-bottone_divisione = setup_bottone(font, "/", button_x_inc * 3, init_button_y, button_x_inc * 4, init_button_y + button_y_inc)
+bottone_parentesi_aperta = setup_bottone(font, "(",     0,                init_button_y,                    button_x_inc,     init_button_y + button_y_inc)
+bottone_parentesi_chiusa = setup_bottone(font, ")",     button_x_inc,     init_button_y,                    button_x_inc * 2, init_button_y + button_y_inc)
+bottone_canc = setup_bottone(font, "canc",              button_x_inc * 2, init_button_y,                    button_x_inc * 3, init_button_y + button_y_inc)
+bottone_divisione = setup_bottone(font, "/",            button_x_inc * 3, init_button_y,                    button_x_inc * 4, init_button_y + button_y_inc)
 # seconda riga
-bottone_7 = setup_bottone(font, "7", 0, init_button_y + button_y_inc, button_x_inc, init_button_y + button_y_inc * 2)
-bottone_8 = setup_bottone(font, "8", button_x_inc, init_button_y + button_y_inc, button_x_inc * 2, init_button_y + button_y_inc * 2)
-bottone_9 = setup_bottone(font, "9", button_x_inc * 2, init_button_y + button_y_inc, button_x_inc * 3, init_button_y + button_y_inc * 2)
-bottone_moltiplicazione = setup_bottone(font, "X", button_x_inc * 3, init_button_y + button_y_inc, button_x_inc * 4, init_button_y + button_y_inc * 2)
+bottone_7 = setup_bottone(font, "7",                    0,                init_button_y + button_y_inc,     button_x_inc,     init_button_y + button_y_inc * 2)
+bottone_8 = setup_bottone(font, "8",                    button_x_inc,     init_button_y + button_y_inc,     button_x_inc * 2, init_button_y + button_y_inc * 2)
+bottone_9 = setup_bottone(font, "9",                    button_x_inc * 2, init_button_y + button_y_inc,     button_x_inc * 3, init_button_y + button_y_inc * 2)
+bottone_moltiplicazione = setup_bottone(font, "X",      button_x_inc * 3, init_button_y + button_y_inc,     button_x_inc * 4, init_button_y + button_y_inc * 2)
 # terza riga
+bottone_4 = setup_bottone(font, "4",                    0,                init_button_y + button_y_inc * 2, button_x_inc,     init_button_y + button_y_inc * 3)
+bottone_5 = setup_bottone(font, "5",                    button_x_inc,     init_button_y + button_y_inc * 2, button_x_inc * 2, init_button_y + button_y_inc * 3)
+bottone_6 = setup_bottone(font, "6",                    button_x_inc * 2, init_button_y + button_y_inc * 2, button_x_inc * 3, init_button_y + button_y_inc * 3)
+bottone_sottrazione = setup_bottone(font, "-",          button_x_inc * 3, init_button_y + button_y_inc * 2, button_x_inc * 4, init_button_y + button_y_inc * 3)
 # quarta riga
+bottone_1 = setup_bottone(font, "1",                    0,                init_button_y + button_y_inc * 3, button_x_inc,     init_button_y + button_y_inc * 4)
+bottone_2 = setup_bottone(font, "2",                    button_x_inc,     init_button_y + button_y_inc * 3, button_x_inc * 2, init_button_y + button_y_inc * 4)
+bottone_3 = setup_bottone(font, "3",                    button_x_inc * 2, init_button_y + button_y_inc * 3, button_x_inc * 3, init_button_y + button_y_inc * 4)
+bottone_addizione = setup_bottone(font, "+",            button_x_inc * 3, init_button_y + button_y_inc * 3, button_x_inc * 4, init_button_y + button_y_inc * 4)
 # quinta riga
-bottone_AC = setup_bottone(font, "AC", 0, init_button_y + button_y_inc * 4, button_x_inc, init_button_y + button_y_inc * 5)
-bottone_uguale = setup_bottone(font, "=", button_x_inc * 3, init_button_y + button_y_inc * 4, button_x_inc * 4, init_button_y + button_y_inc * 5)
+bottone_AC = setup_bottone(font, "AC",                  0,                init_button_y + button_y_inc * 4, button_x_inc,     init_button_y + button_y_inc * 5)
+bottone_0 = setup_bottone(font, "0",                    button_x_inc,     init_button_y + button_y_inc * 4, button_x_inc * 2, init_button_y + button_y_inc * 5)
+bottone_virgola = setup_bottone(font, ",",              button_x_inc * 2, init_button_y + button_y_inc * 4, button_x_inc * 3, init_button_y + button_y_inc * 5)
+bottone_uguale = setup_bottone(font, "=",               button_x_inc * 3, init_button_y + button_y_inc * 4, button_x_inc * 4, init_button_y + button_y_inc * 5)
 
 lista_superfici = [bottone_parentesi_aperta, bottone_parentesi_chiusa, bottone_canc, bottone_divisione, \
                    bottone_7, bottone_8, bottone_9, bottone_moltiplicazione, \
-                   \
-                   bottone_AC, bottone_uguale]
+                   bottone_4, bottone_5, bottone_6, bottone_sottrazione, \
+                   bottone_1, bottone_2, bottone_3, bottone_addizione, \
+                   bottone_AC, bottone_0, bottone_virgola, bottone_uguale]
 
 # dashboard setup
 dashboard = Dashboard()
@@ -79,30 +90,53 @@ while running:
 
         # bottone premuto con il mouse
         if event.type == pygame.MOUSEBUTTONDOWN:
-            
-            if bottone_parentesi_aperta[0].get_rect(topleft=bottone_parentesi_aperta[1]).collidepoint(event.pos):
-                dashboard.add_valore_stringa_corrente("(")
-            if bottone_parentesi_chiusa[0].get_rect(topleft=bottone_parentesi_chiusa[1]).collidepoint(event.pos):
-                dashboard.add_valore_stringa_corrente(")")
-            if bottone_canc[0].get_rect(topleft=bottone_canc[1]).collidepoint(event.pos):
-                dashboard.add_valore_stringa_corrente("canc")
-            if bottone_divisione[0].get_rect(topleft=bottone_divisione[1]).collidepoint(event.pos):
-                dashboard.add_valore_stringa_corrente("/")
-            
-            if bottone_7[0].get_rect(topleft=bottone_7[1]).collidepoint(event.pos):
-                dashboard.add_valore_stringa_corrente(7)
-            if bottone_8[0].get_rect(topleft=bottone_8[1]).collidepoint(event.pos):
-                dashboard.add_valore_stringa_corrente(8)
-            if bottone_9[0].get_rect(topleft=bottone_9[1]).collidepoint(event.pos):
-                dashboard.add_valore_stringa_corrente(9)
-            if bottone_moltiplicazione[0].get_rect(topleft=bottone_moltiplicazione[1]).collidepoint(event.pos):
-                dashboard.add_valore_stringa_corrente("*")
-            
-            if bottone_AC[0].get_rect(topleft=bottone_AC[1]).collidepoint(event.pos):
-                dashboard.add_valore_stringa_corrente("AC")
-            if bottone_uguale[0].get_rect(topleft=bottone_uguale[1]).collidepoint(event.pos):
-                dashboard.calcola()
+            for bottone in lista_superfici:
+                if bottone[0].get_rect(topleft=bottone[1]).collidepoint(event.pos):
+                    
+                    if bottone[0] == bottone_parentesi_aperta[0]:
+                        dashboard.add_valore_stringa_corrente("(")
+                    elif bottone[0] == bottone_parentesi_chiusa[0]:
+                        dashboard.add_valore_stringa_corrente(")")
+                    elif bottone[0] == bottone_canc[0]:
+                        dashboard.add_valore_stringa_corrente("canc")
+                    elif bottone[0] == bottone_divisione[0]:
+                        dashboard.add_valore_stringa_corrente("/")
 
+                    elif bottone[0] == bottone_7[0]:
+                        dashboard.add_valore_stringa_corrente(7)
+                    elif bottone[0] == bottone_8[0]:
+                        dashboard.add_valore_stringa_corrente(8)
+                    elif bottone[0] == bottone_9[0]:
+                        dashboard.add_valore_stringa_corrente(9)
+                    elif bottone[0] == bottone_moltiplicazione[0]:
+                        dashboard.add_valore_stringa_corrente("*")
+
+                    elif bottone[0] == bottone_4[0]:
+                        dashboard.add_valore_stringa_corrente(4)
+                    elif bottone[0] == bottone_5[0]:
+                        dashboard.add_valore_stringa_corrente(5)
+                    elif bottone[0] == bottone_6[0]:
+                        dashboard.add_valore_stringa_corrente(6)
+                    elif bottone[0] == bottone_sottrazione[0]:
+                        dashboard.add_valore_stringa_corrente("-")
+                    
+                    elif bottone[0] == bottone_1[0]:
+                        dashboard.add_valore_stringa_corrente(1)
+                    elif bottone[0] == bottone_2[0]:
+                        dashboard.add_valore_stringa_corrente(2)
+                    elif bottone[0] == bottone_3[0]:
+                        dashboard.add_valore_stringa_corrente(3)
+                    elif bottone[0] == bottone_addizione[0]:
+                        dashboard.add_valore_stringa_corrente("+")
+
+                    elif bottone[0] == bottone_AC[0]:
+                        dashboard.reset()
+                    elif bottone[0] == bottone_0[0]:
+                        dashboard.add_valore_stringa_corrente(0)
+                    elif bottone[0] == bottone_virgola[0]:
+                        dashboard.add_valore_stringa_corrente(",")
+                    elif bottone[0] == bottone_uguale[0]:
+                        dashboard.calcola()
             print(dashboard.get_stringa_corrente())
 
     # RENDER YOUR GAME HERE
