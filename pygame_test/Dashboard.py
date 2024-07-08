@@ -5,6 +5,7 @@ class Dashboard():
         """
         self.__stringa_corrente = '0'
         self.__init_zero = True
+        self.__parentesi_aperte = 0
 
     def reset(self):
         """
@@ -27,16 +28,28 @@ class Dashboard():
         try:
             if isinstance(valore, int) or valore in ('(', ')', ','):
                 if (valore == ',' and self.__stringa_corrente[-1] in (',', '(', ')')) == False and \
-                    (valore in ('(', ')') and self.__stringa_corrente[-1] == ',') == False:        
-                    if self.__init_zero:
+                    (valore in ('(', ')') and self.__stringa_corrente[-1] == ',') == False:
+                    if valore == '(':
+                        self.__parentesi_aperte += 1
+                    
+                    if valore == ')':
+                        if self.__stringa_corrente[-1] in ('+', '-', '*', '/'):
+                            pass # TODO : gestisci questo caso 
+
+                        pass # TODO: controlla prima di chiudere una parentesi se è mai stata aperta
+
+                    if self.__init_zero == True:
                         self.__init_zero = False
                         if valore != ',':
                             self.__stringa_corrente = ''
                     self.__stringa_corrente += str(valore)
                 
             elif valore in ('+', '-', '*', '/'):
-                self.__stringa_corrente += str(valore)
-                self.__init_zero = False
+                if self.__stringa_corrente[-1] in ('+', '-', '*', '/'):
+                    self.__stringa_corrente[-1] = valore
+                elif self.__stringa_corrente[-1] != '(':
+                    self.__stringa_corrente += str(valore)
+                    self.__init_zero = False
 
             elif valore == 'AC':
                 self.reset()
@@ -83,7 +96,22 @@ class Dashboard():
             print(f'Errore generico: {e}')
             # Gestione generica per altre eccezioni non previste
 
-    def calcola(self):
-        print("da implementare")
-        # TODO: implementa >:(
+    def calcola_totale(self):
+        ret = self.cerca_parentesi(self.__stringa_corrente)
         self.reset()
+        return ret
+
+    def cerca_parentesi(self, testo):
+        while '(' in testo:
+            # trova l'ultima apertura e la prima chiusura di parentesi
+            pos_apertura = testo.rfind('(')
+            pos_chiusura = testo.find(')', pos_apertura)
+            if pos_chiusura == -1:
+                pos_chiusura = len(testo)
+
+            # calcolo
+            espressione = testo[pos_apertura + 1:pos_chiusura]
+            ris = eval(espressione)
+
+            testo = testo[:pos_apertura] + str(ris) + testo[pos_chiusura + 1:]
+        return eval(testo)

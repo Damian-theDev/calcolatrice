@@ -7,23 +7,6 @@ def initialize(screen):
 def get_coordinate_finestra():
     return pygame.display.get_surface().get_size()
 
-# pygame setup
-pygame.init()
-
-clock = pygame.time.Clock()
-running = True
-
-# window setup
-global init_larghezza, init_altezza, screen
-
-init_larghezza, init_altezza = 400, 650
-screen = pygame.display.set_mode((init_larghezza, init_altezza), pygame.RESIZABLE)
-pygame.display.set_caption('Calcolatrice')
-
-# button setup
-pygame.font.init()
-font = pygame.font.Font(None, 36)  # Font di default, dimensione 36
-
 def setup_bottone(font, text, surface_init_x, surface_init_y, surface_final_x, surface_final_y):
     surface = pygame.Surface((surface_final_x - surface_init_x, surface_final_y - surface_init_y))  # Dimensioni della superficie
     surface.fill((69, 69, 69))  # Colore della superficie
@@ -38,6 +21,26 @@ def setup_bottone(font, text, surface_init_x, surface_init_y, surface_final_x, s
 
     return surface, (surface_init_x, surface_init_y)
 
+global init_larghezza, init_altezza, screen
+
+# --- SETUP PYGAME ---
+pygame.init()
+clock = pygame.time.Clock()
+running = True
+
+# --- SETUP SCHERMO ---
+init_larghezza, init_altezza = 400, 650
+screen = pygame.display.set_mode((init_larghezza, init_altezza), pygame.RESIZABLE)
+pygame.display.set_caption('Calcolatrice')
+
+# --- SETUP BOTTONI ---
+pygame.font.init()
+font = pygame.font.Font(None, 36)  # Font di default, dimensione 36
+
+# --- DASHBOARD SETUP ---
+dashboard = Dashboard()
+
+# --- SETUP BOTTONI ---
 # coordinate per bottoni
 init_button_y = init_altezza * 0.23
 button_y_inc = (init_altezza - init_button_y) // 5 
@@ -70,14 +73,12 @@ bottone_0 = setup_bottone(font, "0",                    button_x_inc,     init_b
 bottone_virgola = setup_bottone(font, ",",              button_x_inc * 2, init_button_y + button_y_inc * 4, button_x_inc * 3, init_button_y + button_y_inc * 5)
 bottone_uguale = setup_bottone(font, "=",               button_x_inc * 3, init_button_y + button_y_inc * 4, button_x_inc * 4, init_button_y + button_y_inc * 5)
 
-lista_superfici = [bottone_parentesi_aperta, bottone_parentesi_chiusa, bottone_canc, bottone_divisione, \
+lista_bottoni = [bottone_parentesi_aperta, bottone_parentesi_chiusa, bottone_canc, bottone_divisione, \
                    bottone_7, bottone_8, bottone_9, bottone_moltiplicazione, \
                    bottone_4, bottone_5, bottone_6, bottone_sottrazione, \
                    bottone_1, bottone_2, bottone_3, bottone_addizione, \
                    bottone_AC, bottone_0, bottone_virgola, bottone_uguale]
 
-# dashboard setup
-dashboard = Dashboard()
 
 # init
 initialize(screen)
@@ -90,7 +91,7 @@ while running:
 
         # bottone premuto con il mouse
         if event.type == pygame.MOUSEBUTTONDOWN:
-            for bottone in lista_superfici:
+            for bottone in lista_bottoni:
                 if bottone[0].get_rect(topleft=bottone[1]).collidepoint(event.pos):
                     
                     if bottone[0] == bottone_parentesi_aperta[0]:
@@ -136,19 +137,18 @@ while running:
                     elif bottone[0] == bottone_virgola[0]:
                         dashboard.add_valore_stringa_corrente(",")
                     elif bottone[0] == bottone_uguale[0]:
-                        dashboard.calcola()
-            print(dashboard.get_stringa_corrente())
+                        print(f'\n--- risultato : {dashboard.calcola_totale()} ---\n')
+            print(f'dashboard : {dashboard.get_stringa_corrente()}')
 
-    # RENDER YOUR GAME HERE
     initialize(screen)
 
-    for superficie, pos in lista_superfici:
+    for superficie, pos in lista_bottoni:
         screen.blit(superficie, pos)
         # TODO: reimposta grandezza e posizione dei bottoni
 
-    # flip() the display to put your work on screen
+    # update screen
     pygame.display.flip()
 
-    clock.tick(60)  # limits FPS to 60
+    clock.tick(30)  # limits FPS
 
 pygame.quit()
