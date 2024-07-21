@@ -26,27 +26,32 @@ class Dashboard():
         Gestisce le eccezioni per garantire che il programma non fallisca in modo imprevisto.
         """
         try:
-            if isinstance(valore, int) or valore in ('(', ')', ','):
-                if (valore == ',' and self.__stringa_corrente[-1] in (',', '(', ')')) == False and \
-                    (valore in ('(', ')') and self.__stringa_corrente[-1] == ',') == False:
+            if isinstance(valore, int) or valore in ('(', ')', '.'):
+                if (valore == '.' and self.__stringa_corrente[-1] in ('.', '(', ')')) == False and \
+                    (valore in ('(', ')') and self.__stringa_corrente[-1] == '.') == False:
                     if valore == '(':
                         self.__parentesi_aperte += 1
-                    
+
                     if valore == ')':
+                        # Gestisci il caso in cui un operatore aritmetico viene seguito da una parentesi chiusa
                         if self.__stringa_corrente[-1] in ('+', '-', '*', '/'):
-                            pass # TODO : gestisci questo caso 
+                            self.__stringa_corrente = self.__stringa_corrente[:-1]
 
-                        pass # TODO: controlla prima di chiudere una parentesi se è mai stata aperta
+                        # Verifica se ci sono parentesi aperte da chiudere
+                        if self.__parentesi_aperte > 0:
+                            self.__parentesi_aperte -= 1
+                        else:
+                            return  # Non aggiungere la parentesi chiusa se non ci sono parentesi aperte
 
-                    if self.__init_zero == True:
+                    if self.__init_zero:
                         self.__init_zero = False
-                        if valore != ',':
+                        if valore != '.':
                             self.__stringa_corrente = ''
                     self.__stringa_corrente += str(valore)
-                
+
             elif valore in ('+', '-', '*', '/'):
                 if self.__stringa_corrente[-1] in ('+', '-', '*', '/'):
-                    self.__stringa_corrente[-1] = valore
+                    self.__stringa_corrente = self.__stringa_corrente[:-1] + str(valore)
                 elif self.__stringa_corrente[-1] != '(':
                     self.__stringa_corrente += str(valore)
                     self.__init_zero = False
@@ -72,6 +77,7 @@ class Dashboard():
         except Exception as e:
             print(f'Errore generico: {e}')
             # Gestione generica per altre eccezioni non previste
+
 
     def cancella_posizione(self, pos = -1):
         """
@@ -114,4 +120,7 @@ class Dashboard():
             ris = eval(espressione)
 
             testo = testo[:pos_apertura] + str(ris) + testo[pos_chiusura + 1:]
-        return eval(testo)
+        try:
+            return eval(testo)
+        except:
+            return 'None'
